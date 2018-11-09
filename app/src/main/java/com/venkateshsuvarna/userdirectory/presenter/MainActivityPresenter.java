@@ -58,10 +58,17 @@ public class MainActivityPresenter implements IMainActivityPresenter {
         Log.d("UserDirectoryLogging",Arrays.toString(userImageURLStringArray));
         Log.d("UserDirectoryLogging","Get User Details Array Print End");
 
-        CustomUserListAdapter customUserListAdapter =
+        final CustomUserListAdapter customUserListAdapter =
                 new CustomUserListAdapter(currentActivity,userFirstNameStringArray,
                         userLastNameStringArray,userImageURLStringArray);
 
-        mainActivityView.displayList(customUserListAdapter);
+        currentActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mainActivityView.displayList(customUserListAdapter);
+            }
+        });
+
+        //mainActivityView.displayList(customUserListAdapter);
     }
 }

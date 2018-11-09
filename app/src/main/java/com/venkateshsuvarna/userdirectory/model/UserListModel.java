@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.venkateshsuvarna.userdirectory.presenter.IMainActivityPresenter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,6 +22,16 @@ public class UserListModel {
     List<String> userImageURLList;
     List<String> userFirstNameList;
     List<String> userLastNameList;
+
+    public boolean isDataLoaded() {
+        return dataLoaded;
+    }
+
+    public void setDataLoaded(boolean dataLoaded) {
+        this.dataLoaded = dataLoaded;
+    }
+
+    boolean dataLoaded = false;
 
     public UserListModel(Context mContext) {
 
@@ -36,8 +47,8 @@ public class UserListModel {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-                        Log.d("UserListResponse", response.toString());
-
+                        Log.d("UserDirectoryLogging", "Response from Server = "+response.toString());
+                        dataLoaded = true;
                         parseJSONUserListData(response);
                     }
                 },
@@ -45,7 +56,7 @@ public class UserListModel {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", error.toString());
+                        Log.d("UserDirectoryLogging", "Error from Server = "+error.toString());
                     }
                 }
         );
@@ -55,6 +66,9 @@ public class UserListModel {
     }
 
     public void parseJSONUserListData(JSONObject response){
+
+        Log.d("UserDirectoryLogging","parseJSONUserListData called");
+
         try{
             JSONArray data = response.getJSONArray("data");
             for(int i=0;i<=data.length()-1;i++){
@@ -62,15 +76,29 @@ public class UserListModel {
                 userImageURLList.add(userObject.getString("avatar"));
                 userFirstNameList.add(userObject.getString("first_name"));
                 userLastNameList.add(userObject.getString("last_name"));
+
+                Log.d("UserDirectoryLogging","First Name = "
+                        +userObject.getString("first_name"));
+                Log.d("UserDirectoryLogging","Last Name = "
+                        +userObject.getString("last_name"));
+                Log.d("UserDirectoryLogging","Avatar = "
+                        +userObject.getString("avatar"));
+
             }
         }
         catch (Exception e){
             Log.d("ParseJSONError",e.toString());
         }
+
+        Log.d("UserDirectoryLogging","parseJSONUserListData method end");
     }
 
     public List<String> getUserImageURLList() {
         return userImageURLList;
+    }
+
+    public String[] getUserImageURLStringArray(){
+        return userImageURLList.toArray(new String[0]);
     }
 
     public void setUserImageURLList(List<String> userImageURLList) {
@@ -81,12 +109,20 @@ public class UserListModel {
         return userFirstNameList;
     }
 
+    public String[] getUserFirstNameStringArray(){
+        return userFirstNameList.toArray(new String[0]);
+    }
+
     public void setUserFirstNameList(List<String> userFirstNameList) {
         this.userFirstNameList = userFirstNameList;
     }
 
     public List<String> getUserLastNameList() {
         return userLastNameList;
+    }
+
+    public String[] getUserLastNameStringArray(){
+        return userLastNameList.toArray(new String[0]);
     }
 
     public void setUserLastNameList(List<String> userLastNameList) {

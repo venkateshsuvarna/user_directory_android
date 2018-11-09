@@ -4,4 +4,5 @@ import android.content.Context;
 
 public interface IMainActivityPresenter {
     void getUserDetails(Context mContext);
+    void loadListView();
 }

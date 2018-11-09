@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditText
+        android:id="@+id/newUserName"
+        android:hint="Enter Name here..."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        app:layout_constraintTop_toBottomOf="@id/newUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/newUserJob"
+        android:hint="Enter job here..."/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addNewUserButton"
+        android:text="Submit"
+        app:layout_constraintTop_toBottomOf="@id/newUserJob"/>
+
+</android.support.constraint.ConstraintLayout>

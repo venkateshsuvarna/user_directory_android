@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     @Override
     public void displayList(CustomUserListAdapter userListAdapter) {
+        //Initializes the list with the specified adapter
         userListView.setAdapter(userListAdapter);
     }
 }

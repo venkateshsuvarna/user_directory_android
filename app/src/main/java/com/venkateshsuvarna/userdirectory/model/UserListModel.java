@@ -27,14 +27,11 @@ public class UserListModel {
         return dataLoaded;
     }
 
-    public void setDataLoaded(boolean dataLoaded) {
-        this.dataLoaded = dataLoaded;
-    }
-
     boolean dataLoaded = false;
 
     public UserListModel(Context mContext) {
 
+        //Initialize the arraylist
         userImageURLList = new ArrayList<>();
         userFirstNameList = new ArrayList<>();
         userLastNameList = new ArrayList<>();
@@ -46,7 +43,7 @@ public class UserListModel {
                 {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // display response
+                        //Record Response
                         Log.d("UserDirectoryLogging", "Response from Server = "+response.toString());
                         dataLoaded = true;
                         parseJSONUserListData(response);
@@ -61,11 +58,14 @@ public class UserListModel {
                 }
         );
 
-        // add it to the RequestQueue
+        //Add it to the RequestQueue
         queue.add(getRequest);
     }
 
     public void parseJSONUserListData(JSONObject response){
+
+        //This function will take the response JSON object from the GET url and convert the data
+        //into the respective arraylists
 
         Log.d("UserDirectoryLogging","parseJSONUserListData called");
 
@@ -93,39 +93,18 @@ public class UserListModel {
         Log.d("UserDirectoryLogging","parseJSONUserListData method end");
     }
 
-    public List<String> getUserImageURLList() {
-        return userImageURLList;
-    }
 
     public String[] getUserImageURLStringArray(){
         return userImageURLList.toArray(new String[0]);
-    }
-
-    public void setUserImageURLList(List<String> userImageURLList) {
-        this.userImageURLList = userImageURLList;
-    }
-
-    public List<String> getUserFirstNameList() {
-        return userFirstNameList;
     }
 
     public String[] getUserFirstNameStringArray(){
         return userFirstNameList.toArray(new String[0]);
     }
 
-    public void setUserFirstNameList(List<String> userFirstNameList) {
-        this.userFirstNameList = userFirstNameList;
-    }
-
-    public List<String> getUserLastNameList() {
-        return userLastNameList;
-    }
 
     public String[] getUserLastNameStringArray(){
         return userLastNameList.toArray(new String[0]);
     }
 
-    public void setUserLastNameList(List<String> userLastNameList) {
-        this.userLastNameList = userLastNameList;
-    }
 }

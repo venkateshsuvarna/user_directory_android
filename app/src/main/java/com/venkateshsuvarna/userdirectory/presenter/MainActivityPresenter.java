@@ -6,13 +6,10 @@ import android.util.Log;
 
 import com.venkateshsuvarna.userdirectory.model.UserListModel;
 import com.venkateshsuvarna.userdirectory.view.IMainActivityView;
-import com.venkateshsuvarna.userdirectory.view.MainActivity;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Handler;
 
 public class MainActivityPresenter implements IMainActivityPresenter {
 
@@ -27,8 +24,11 @@ public class MainActivityPresenter implements IMainActivityPresenter {
 
     @Override
     public void getUserDetails(Context mContext) {
+        //Initialize the list view model
         userListModel = new UserListModel(mContext);
 
+        //Check if the dataLoaded == true every second
+        //This is done to only initialize the list view once the data has been fetched
         final Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -45,6 +45,10 @@ public class MainActivityPresenter implements IMainActivityPresenter {
 
     @Override
     public void loadListView() {
+
+        //This method is called only when the complete data is fetched
+        //Or else then the list view will be empty because fetching data takes some time
+
         String[] userFirstNameStringArray = userListModel.getUserFirstNameStringArray();
         String[] userLastNameStringArray = userListModel.getUserLastNameStringArray();
         String[] userImageURLStringArray = userListModel.getUserImageURLStringArray();
@@ -58,10 +62,14 @@ public class MainActivityPresenter implements IMainActivityPresenter {
         Log.d("UserDirectoryLogging",Arrays.toString(userImageURLStringArray));
         Log.d("UserDirectoryLogging","Get User Details Array Print End");
 
+        //Pass the data to the custom adapter
+
         final CustomUserListAdapter customUserListAdapter =
                 new CustomUserListAdapter(currentActivity,userFirstNameStringArray,
                         userLastNameStringArray,userImageURLStringArray);
 
+        //This has to be called on UI thread - because only the thread that initializes the view
+        //can access the views
         currentActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

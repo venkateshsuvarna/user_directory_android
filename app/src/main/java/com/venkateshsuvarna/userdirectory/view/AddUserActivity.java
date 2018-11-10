@@ -24,10 +24,13 @@ public class AddUserActivity extends AppCompatActivity implements IAddUserView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user);
 
+        //Initialize the presenter
         addUserPresenter = new AddUserPresenter(mContext,this);
 
+        //Set the text of the action bar
         getSupportActionBar().setTitle("Add User");
 
+        //Initialize the Activity views
         final EditText newUserNameEditText = findViewById(R.id.newUserNameEditText);
         final EditText newUserJobEditText = findViewById(R.id.newUserJobEditText);
         Button addNewUserButton = findViewById(R.id.addNewUserButton);
@@ -35,6 +38,9 @@ public class AddUserActivity extends AppCompatActivity implements IAddUserView{
         addNewUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //Send the data to the presenter to take action
+
                 addUserPresenter.getUserDetails(newUserNameEditText.getText().toString(),
                         newUserJobEditText.getText().toString());
 
@@ -44,6 +50,7 @@ public class AddUserActivity extends AppCompatActivity implements IAddUserView{
 
     @Override
     public void showToast(String message) {
+        //Show toast message
         Log.d("UserDirectoryLogging","Show Toast with message = "+message);
         Toast.makeText(mContext,message,Toast.LENGTH_LONG).show();
     }

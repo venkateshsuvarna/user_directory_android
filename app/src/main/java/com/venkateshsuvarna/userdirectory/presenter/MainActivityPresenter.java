@@ -69,6 +69,5 @@ public class MainActivityPresenter implements IMainActivityPresenter {
             }
         });
 
-        //mainActivityView.displayList(customUserListAdapter);
     }
 }

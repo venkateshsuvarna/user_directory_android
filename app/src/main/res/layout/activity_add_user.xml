@@ -5,16 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditText
-        android:id="@+id/newUserName"
+        android:id="@+id/newUserNameEditText"
         android:hint="Enter Name here..."
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        app:layout_constraintTop_toBottomOf="@id/newUserName"
+        app:layout_constraintTop_toBottomOf="@id/newUserNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/newUserJob"
+        android:id="@+id/newUserJobEditText"
         android:hint="Enter job here..."/>
 
     <Button
@@ -22,6 +22,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/addNewUserButton"
         android:text="Submit"
-        app:layout_constraintTop_toBottomOf="@id/newUserJob"/>
+        app:layout_constraintTop_toBottomOf="@id/newUserJobEditText"/>
 
 </android.support.constraint.ConstraintLayout>
